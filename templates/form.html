@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Form Project" %}{% endblock %}
+
+{% block content %}
+<h1>{{ greeting }}</h1>
+<p>{% trans "Date" %}: {{ current_date }}</p>
+
+<form action="{% url 'set_language' %}" method="post" >
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}" />
+    <select name="language" class="form-select" >
+        <option selected value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+    </select>
+    <input type="submit" value="Change Language" class="btn btn-success">
+</form>
+{% endblock %}
