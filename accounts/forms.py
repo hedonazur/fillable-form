@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
-
+from django.utils.translation import gettext_lazy as _
 
 class UserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True, label='Email', widget=forms.EmailInput(attrs={'placeholder' :'Email', 'style': 'width: 300px;'}))
-    username = forms.CharField(required=True, label='Username', widget=forms.TextInput(attrs={'placeholder': 'Username', 'style': 'width: 300px;'}))
-    password1 =  forms.CharField(required=True, label='Enter password', widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'style': 'width: 300px;'}))
-    password2 = forms.CharField(required=True, label='Confirm password', widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password', 'style': 'width: 300px;'}))
+    email = forms.EmailField(required=True, label=_('Email'), widget=forms.EmailInput(attrs={'placeholder' :_('Email'), 'style': 'width: 300px;'}))
+    username = forms.CharField(required=True, label=_('Username'), widget=forms.TextInput(attrs={'placeholder': _('Username'), 'style': 'width: 300px;'}))
+    password1 =  forms.CharField(required=True, label=_('Enter password'), widget=forms.PasswordInput(attrs={'placeholder': _('Password'), 'style': 'width: 300px;'}))
+    password2 = forms.CharField(required=True, label=_('Confirm password'), widget=forms.PasswordInput(attrs={'placeholder': _('Confirm password'), 'style': 'width: 300px;'}))
     
     class Meta:
         model = User
@@ -24,20 +24,20 @@ class UserCreationForm(UserCreationForm):
 class PasswordChangeForm(PasswordChangeForm):
     old_password =  forms.CharField(
         required=True,
-        label='Old password',
+        label=_('Old password'),
         widget=forms.PasswordInput(
-            attrs={'placeholder': 'Old password',
+            attrs={'placeholder': _('Old password'),
                    'style': 'width: 300px;'}))
     new_password1 =  forms.CharField(
         required=True,
-        label='Enter password',
+        label=_('Enter password'),
         widget=forms.PasswordInput(
-            attrs={'placeholder': 'New password',
+            attrs={'placeholder': _('New password'),
                    'style': 'width: 300px;'}))
     new_password2 = forms.CharField(
         required=True,
-        label='Confirm password',
+        label=_('Confirm password'),
         widget=forms.PasswordInput(
-            attrs={'placeholder': 'Confirm new password',
+            attrs={'placeholder': _('Confirm new password'),
                    'style': 'width: 300px;'}))
     

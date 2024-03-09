@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-08 16:37-0500\n"
+"POT-Creation-Date: 2024-03-08 19:17-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/forms.py:7
+msgid "Email"
+msgstr "Correo"
+
+#: accounts/forms.py:8
+msgid "Username"
+msgstr "Usuario"
+
+#: accounts/forms.py:9 accounts/forms.py:33
+msgid "Enter password"
+msgstr "Ingresar contraseña"
+
+#: accounts/forms.py:9
+msgid "Password"
+msgstr "Contraseña"
+
+#: accounts/forms.py:10 accounts/forms.py:39
+msgid "Confirm password"
+msgstr "Confirmar contraseña"
+
+#: accounts/forms.py:27 accounts/forms.py:29
+msgid "Old password"
+msgstr "Contraseña antigua"
+
+#: accounts/forms.py:35
+msgid "New password"
+msgstr "Nueva contraseña"
+
+#: accounts/forms.py:41
+msgid "Confirm new password"
+msgstr "Confirmar nueva contraseña"
 
 #: formApp/views.py:7
 msgid "Welcome to our Project!"
@@ -29,3 +61,88 @@ msgstr "Proyecto Formulario"
 #: templates/form.html:7
 msgid "Date"
 msgstr "Fecha"
+
+#: templates/home.html:7
+msgid "Hi"
+msgstr "Hola"
+
+#: templates/home.html:8
+msgid "Password Change"
+msgstr "Cambiar contraseña"
+
+#: templates/home.html:12
+msgid "Log Out"
+msgstr "Salir de sesión"
+
+#: templates/home.html:16
+msgid "You are not logged in"
+msgstr "No has iniciado sesión"
+
+#: templates/home.html:17
+msgid "Password Reset"
+msgstr "Restablecer contraseña"
+
+#: templates/home.html:18 templates/registration/login.html:6
+#: templates/registration/login.html:13
+msgid "Log In"
+msgstr "Inicia sesión"
+
+#: templates/home.html:18 templates/registration/signup.html:6
+#: templates/registration/signup.html:13
+msgid "Sign Up"
+msgstr "Registrarse"
+
+#: templates/registration/password_change_done.html:6
+msgid "Success!"
+msgstr "Éxito"
+
+#: templates/registration/password_change_done.html:7
+msgid "Password changed"
+msgstr "Se cambió la contraseña"
+
+#: templates/registration/password_change_done.html:8
+msgid "Home"
+msgstr "Página principal"
+
+#: templates/registration/password_change_form.html:7
+msgid "Change your password"
+msgstr "Cambia tu contraseña"
+
+#: templates/registration/password_change_form.html:14
+#: templates/registration/password_reset_confirm.html:11
+#: templates/registration/password_reset_form.html:14
+msgid "Submit"
+msgstr "Enviar"
+
+#: templates/registration/password_reset_confirm.html:7
+msgid "Enter new password"
+msgstr "Ingresar nueva contraseña"
+
+#: templates/registration/password_reset_done.html:3
+msgid "Password Reset Done"
+msgstr "Se restableció la contraseña"
+
+#: templates/registration/password_reset_done.html:7
+msgid "Password reset sent"
+msgstr "Restablecimiento de contraseña enviado"
+
+#: templates/registration/password_reset_done.html:8
+msgid ""
+"We’ve emailed you instructions for setting your password, if an account "
+"exists with the email you entered."
+msgstr ""
+"Hemos enviado a su correo las instrucciones para configurar su "
+"contraseña, si existiera una cuenta con su correo."
+
+#: templates/registration/password_reset_done.html:9
+msgid ""
+"You should receive them shortly. If you don’t receive an email, please make "
+"sure you’ve entered the address you registered with, and check your spam "
+"folder."
+msgstr ""
+"Deberias recibirlo en poco tiempo. Si no recibes un correo, por favor "
+"cerciórate de haber ingresado la direccion de correo con que te registraste y revisa el spam."
+
+#: templates/registration/password_reset_form.html:7
+msgid "Reset your password"
+msgstr "Restablece tu contraseña"
