@@ -1,0 +1,11 @@
+<section>
+<form action="{% url 'set_language' %}" method="post" name="theForm" >
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}" />
+    <select id="mySelect" name="language" class="form-select" onchange="this.form.submit()"> 
+        <option value="" disabled selected hidden>Choose a Language</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+    </select>
+</form>
+</section>

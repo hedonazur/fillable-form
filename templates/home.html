@@ -17,4 +17,8 @@
 <p><a href="{% url 'password_reset' %}">{% trans "Password Reset" %}</a></p>
 <a href="{% url 'login' %}">{% trans "Log In" %}</a> or <a href="{% url 'signup' %}">{% trans "Sign Up" %}</a>
 {% endif %}
+
+<p><a href="{% url 'formPage' %}">Form</a></p>
+
+{% include 'section_language.html' %}
 {% endblock %}
