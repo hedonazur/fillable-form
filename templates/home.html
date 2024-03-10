@@ -3,20 +3,25 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+
+<h1 class="gilda-display-regular">Office Solutions</h1>
+<div class="user-auth">
 {% if user.is_authenticated %}
-<p>{% trans "Hi" %} {{ user.username }}!</p>
-<p><a href="{% url 'password_change' %}">{% trans "Password Change" %}</a></p>
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <div class="form-group">
-      <button type="submit" class="btn btn-success">{% trans "Log Out" %}</button>
-    </div>
-  </form>
+  <p>{% trans "Hi" %} {{ user.username }}!</p>
+  <p><a href="{% url 'password_change' %}">{% trans "Password Change" %}</a></p>
+  <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <button type="submit" class="btn btn-success">{% trans "Log Out" %}</button>
+      </div>
+    </form>
 {% else %}
-<p>{% trans "You are not logged in" %}</p>
-<p><a href="{% url 'password_reset' %}">{% trans "Password Reset" %}</a></p>
-<a href="{% url 'login' %}">{% trans "Log In" %}</a> or <a href="{% url 'signup' %}">{% trans "Sign Up" %}</a>
+  <p>{% trans "You are not logged in" %}</p>
+  <p><a href="{% url 'password_reset' %}">{% trans "Password Reset" %}</a></p>
+  <a href="{% url 'login' %}">{% trans "Log In" %}</a> or <a href="{% url 'signup' %}">{% trans "Sign Up" %}</a>
 {% endif %}
+</div>
+
 
 <p><a href="{% url 'formPage' %}">Form</a></p>
 
