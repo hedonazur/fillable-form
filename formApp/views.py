@@ -8,4 +8,4 @@ def index(request):
         'current_date': timezone.now(),
         'redirect_to': request.path
     }
-    return render(request, 'form.html', context)
+    return render(request, 'formApp/form.html', context)
