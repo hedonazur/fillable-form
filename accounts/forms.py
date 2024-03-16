@@ -40,4 +40,16 @@ class PasswordChangeForm(PasswordChangeForm):
         widget=forms.PasswordInput(
             attrs={'placeholder': _('Confirm new password'),
                    'style': 'width: 300px;'}))
-    
+
+
+class UserLoginForm(forms.ModelForm):
+    username = forms.CharField(
+                            widget=forms.TextInput(attrs={'id': 'floatingInput', 'class': 'form-control mb-3'}),
+                            required=True)
+    password = forms.CharField(
+                            widget=forms.PasswordInput(attrs={'id': 'floatingPassword', 'class': 'form-control mb-3'}),
+                            required=True)
+
+    class Meta:
+        model=User
+        fields=['username','password']
