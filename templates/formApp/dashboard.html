@@ -1,3 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
@@ -98,8 +104,11 @@
 
 <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">Company name</a>
-
+  <li class="nav-link">
+    {% include 'section_language.html' %}
+  </li>
   <ul class="navbar-nav flex-row d-md-none">
+
     <li class="nav-item text-nowrap">
       <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">
         <svg class="bi"><use xlink:href="#search"></use></svg>
@@ -110,6 +119,7 @@
         <svg class="bi"><use xlink:href="#list"></use></svg>
       </button>
     </li>
+
   </ul>
 
   <div id="navbarSearch" class="navbar-search w-100 collapse">
@@ -118,6 +128,9 @@
 </header>
 
 <div class="container-fluid">
+<h1>{{ greeting }}</h1>
+<p>{% trans "Date" %}: {{ current_date }}</p>
+<p><a href="{% url 'home' %}">Home</a></p>
   <div class="row">
     <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
       <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
@@ -366,8 +379,11 @@
     </main>
   </div>
 </div>
-<script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link rel="stylesheet" type='text/css' href="{% static 'assets/css/dashboard.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
+    <script src="{% static 'assets/js/dashboard.js' %}"></script>
+    <script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script><script src="dashboard.js"></script>
+    <div class="extLives"></div></body>
 
-<div class="extLives"></div></body>
+{% endblock %}

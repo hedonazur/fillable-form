@@ -4,10 +4,18 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
 class UserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True, label=_('Email'), widget=forms.EmailInput(attrs={'placeholder' :_('Email'), 'style': 'width: 300px;'}))
-    username = forms.CharField(required=True, label=_('Username'), widget=forms.TextInput(attrs={'placeholder': _('Username'), 'style': 'width: 300px;'}))
-    password1 =  forms.CharField(required=True, label=_('Enter password'), widget=forms.PasswordInput(attrs={'placeholder': _('Password'), 'style': 'width: 300px;'}))
-    password2 = forms.CharField(required=True, label=_('Confirm password'), widget=forms.PasswordInput(attrs={'placeholder': _('Confirm password'), 'style': 'width: 300px;'}))
+    username = forms.CharField(
+                required=True, 
+                label=_('Username'), 
+                widget=forms.TextInput(
+                    attrs={'id': 'floatingInput', 
+                           'class': 'form-control mb-3'}))
+    email = forms.EmailField(required=True, label=_('Email'), widget=forms.EmailInput(attrs={'id': 'floatingInput', 
+                           'class': 'form-control mb-3'}))
+    password1 =  forms.CharField(required=True, label=_('Enter password'), widget=forms.PasswordInput(attrs={ 'id': 'floatingInput', 
+                           'class': 'form-control mb-3'}))
+    password2 = forms.CharField(required=True, label=_('Confirm password'), widget=forms.PasswordInput(attrs={'id': 'floatingInput', 
+                           'class': 'form-control mb-3'}))
     
     class Meta:
         model = User

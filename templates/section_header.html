@@ -17,16 +17,25 @@
                 {% include 'section_language.html' %}
             </ul>
             <div class="col-md-3 text-end">
-              <a href="{% url 'login' %}">
-                <button type="button" class="btn btn-outline-primary me-2">
-                  {% trans "Log In" %}
-                </button>
-              </a>
-              <a href="{% url 'signup' %}">
-                <button type="button" class="btn btn-primary">
-                  {% trans "Sign Up" %}
-                </button>
-              </a>
+              {% if user.is_authenticated %}
+              <form action="{% url 'logout' %}" method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary">{% trans "Log Out" %}</button>
+                  </div>
+                </form>
+            {% else %}
+            <a href="{% url 'login' %}">
+              <button type="button" class="btn btn-outline-primary me-2">
+                {% trans "Log In" %}
+              </button>
+            </a>
+            <a href="{% url 'signup' %}">
+              <button type="button" class="btn btn-primary">
+                {% trans "Sign Up" %}
+              </button>
+            </a>      
+            {% endif %}
             </div>
         </header>
       </div>
