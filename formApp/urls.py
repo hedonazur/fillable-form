@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='formPage'),
+    path('clients/', views.clients, name='clients'),
     path('i18n/', include('django.conf.urls.i18n')),
 ]
