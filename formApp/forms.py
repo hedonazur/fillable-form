@@ -24,9 +24,35 @@ class ProductForm(forms.ModelForm):
 
 
 class ProformaForm(forms.ModelForm):
+    title = forms.CharField(
+                # required=True, 
+                widget=forms.TextInput(
+                    attrs={'class': 'form-control'}))
+    salesmanName = forms.CharField(
+                # required=True, 
+                widget=forms.TextInput(
+                    attrs={'class': 'form-control'}))
+    delivery = forms.BooleanField(
+                # required=True, 
+                widget=forms.CheckboxInput(
+                    attrs={'class': 'form-check-input'}))
+    deliveryPrice = forms.FloatField(
+                # required=True, 
+                widget=forms.NumberInput(
+                    attrs={'class': 'form-control'}))
+    total = forms.FloatField(
+                # required=True, 
+                widget=forms.NumberInput(
+                    attrs={'class': 'form-control'}))
+    grandTotal = forms.FloatField(
+                # required=True, 
+                widget=forms.NumberInput(
+                    attrs={'class': 'form-control'}))
+    
+
     class Meta:
         model = Proforma
-        fields = ['title', 'salesmanName', 'delivery', 'deliveryPrice', 'total', 'grandTotal', 'client', 'product']
+        fields = ['title', 'salesmanName', 'delivery', 'deliveryPrice', 'total', 'grandTotal']
 
 
 class SettingsForm(forms.ModelForm):

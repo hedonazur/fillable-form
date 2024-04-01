@@ -1,0 +1,25 @@
+{% load static %}
+
+<section>
+<div class="modal modal-sheet p-4 py-md-5" tabindex="-1" role="dialog" id="addProductModal">
+    <div class="modal-dialog">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+            <h1 class="fw-bold mb-0 fs-2">Add a Product</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        <div class="modal-body p-5 pt-0">
+          <form method="post">
+            {% csrf_token %}
+                {{ form.as_p}}
+            <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                <button type="submit" class="btn btn-lg btn-primary">Save changes</button>
+                <button type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

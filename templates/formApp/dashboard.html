@@ -144,13 +144,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'proformas' %}">
                 <svg class="bi"><use xlink:href="#file-earmark"></use></svg>
                 Proformas
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'products' %}">
                 <svg class="bi"><use xlink:href="#cart"></use></svg>
                 Products
               </a>
@@ -234,6 +234,15 @@
     {% endif%}
 
     {% block clients_content %}
+    {% endblock %}
+
+    {% block products_content %}
+    {% endblock %}
+
+    {% block proformas_content %}
+    {% endblock %}
+
+    {% block proforma_add_content %}
     {% endblock %}
 
   </div>
