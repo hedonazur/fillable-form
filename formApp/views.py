@@ -13,9 +13,6 @@ from uuid import uuid4
 @login_required
 def index(request):
     context = {
-        'greeting': _("Welcome to our Project!"),
-        'current_date': timezone.now(),
-        'redirect_to': request.path,
     }
     return render(request, 'formApp/dashboard.html', context)
 
