@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from .models import Client, Product, Proforma
-from .forms import ClientForm, ProductForm, ProformaForm
+from .forms import ClientForm, ProductForm, ProformaForm, ClientSelectForm
 from django.contrib import messages
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
@@ -84,7 +84,6 @@ def createBuildProforma(request, slug):
     ####Fetch product
     products = Product.objects.filter(proforma=proforma)
 
-
     context = {}
     context['products'] = products
     context['proforma'] = proforma
@@ -92,13 +91,16 @@ def createBuildProforma(request, slug):
     if request.method == 'GET':
         product_form = ProductForm()
         proforma_form = ProformaForm(instance=proforma)
+        client_form = ClientSelectForm(instance=proforma)
         context['product_form'] = product_form
         context['proforma_form'] = proforma_form
+        context['client_form'] = client_form
         return render(request, 'formApp/proforma_create.html', context)
     
     if request.method == 'POST':
         product_form = ProductForm(request.POST)
         proforma_form = ProformaForm(request.POST, instance=proforma)
+        client_form = ClientSelectForm(request.POST, instance=proforma)
 
         if product_form.is_valid():
             obj = product_form.save(commit=False)
@@ -107,9 +109,20 @@ def createBuildProforma(request, slug):
 
             messages.success(request, 'Invoice Product Added succesfully')
             return redirect('create-built-proforma', slug=slug)
+        elif proforma_form.is_valid and 'salesmanName' in request.POST:
+            proforma_form.save()
+
+            messages.success(request, 'Proforma Updated succesfully')
+            return redirect('create-built-proforma', slug=slug)
+        elif client_form.is_valid and 'client' in request.POST:
+            client_form.save()
+
+            messages.success(request, 'Client added to Proforma succesfully')
+            return redirect('create-built-proforma', slug=slug)
         else:
             context['product_form'] = product_form
             context['proforma_form'] = proforma_form
+            context['client_form'] = client_form
             messages.error(request, 'Problem processing your request')
             return render(request, 'formApp/proforma_create.html', context)
 

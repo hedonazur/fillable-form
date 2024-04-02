@@ -61,10 +61,31 @@ class SettingsForm(forms.ModelForm):
         fields = ['clientFirstName', 'clientLastName', 'clientLogo', 'addressLine1', 'province', 'postalCode', 'phoneNumber', 'emailAddress']
 
 
+class ClientSelectForm(forms.ModelForm):
+
+    def __init__(self,*args,**kwargs):
+        self.CLIENT_LIST = Client.objects.all()
+        self.CLIENT_CHOICES = [('-----', '---Please Select---')]
+
+        for client in self.CLIENT_LIST:
+            d_t = (client.uniqueId, '{} {}'.format(client.clientFirstName, client.clientLastName))
+            self.CLIENT_CHOICES.append(d_t)
 
 
+        super(ClientSelectForm,self).__init__(*args,**kwargs)
 
+        self.fields['client'] = forms.ChoiceField(
+                                        label='Choose a client',
+                                        choices = self.CLIENT_CHOICES,
+                                        widget=forms.Select(attrs={'class': 'form-control mb-3'}),)
 
+    class Meta:
+        model = Proforma
+        fields = ['client']
+
+    def clean_client(self):
+        c_client = self.cleaned_data['client']
+        return Client.objects.get(uniqueId=c_client)
 
 
 

@@ -107,8 +107,22 @@
         <hr class="my-4">
 
         <h4 class="mb-3">Select Client to add</h4>
-        <p>Current Client: </p>
+        <form action="post">
+          {% csrf_token %}
+          <p>Current Client: </p>
+              {{ proforma_form.client.clientFirstName}}
+          <div class="d-flex justify-content-between align-items-center mb-3">
+                {{ client_form }}            
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group me-2">
+                <button type="submit" class="btn btn-primary">Add Client</button>
+              </div>
+            </div>   
+          </div>
+        </form>
+
         <div class="btn-toolbar mb-2 mb-md-0">
+          
           <div class="btn-group me-2">
             <button href="#addClientModal" type="button" class="btn btn-primary" data-bs-toggle="modal">Add New Client</button>
           </div>
