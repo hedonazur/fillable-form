@@ -91,7 +91,7 @@ def createBuildProforma(request, slug):
     if request.method == 'GET':
         product_form = ProductForm()
         proforma_form = ProformaForm(instance=proforma)
-        client_form = ClientSelectForm(instance=proforma)
+        client_form = ClientSelectForm(initial_client=proforma.client)
         context['product_form'] = product_form
         context['proforma_form'] = proforma_form
         context['client_form'] = client_form
@@ -100,7 +100,7 @@ def createBuildProforma(request, slug):
     if request.method == 'POST':
         product_form = ProductForm(request.POST)
         proforma_form = ProformaForm(request.POST, instance=proforma)
-        client_form = ClientSelectForm(request.POST, instance=proforma)
+        client_form = ClientSelectForm(request.POST, initial_client=proforma.client, instance=proforma)
 
         if product_form.is_valid():
             obj = product_form.save(commit=False)
