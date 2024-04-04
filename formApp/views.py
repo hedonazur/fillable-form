@@ -2,10 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.utils.translation import gettext as _
-from .models import Client, Product, Proforma
+from .models import Client, Product, Proforma, Settings
 from .forms import ClientForm, ProductForm, ProformaForm, ClientSelectForm
 from django.contrib import messages
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from uuid import uuid4
@@ -127,3 +127,9 @@ def createBuildProforma(request, slug):
             return render(request, 'formApp/proforma_create.html', context)
 
     return render(request, 'formApp/proforma_create.html', context)
+
+
+def companySettings(request):
+    company = Settings.objects.get(clientFirstName='Office Solutions') 
+    context = {'company': company}
+    return render(request, 'formApp/company.html', context)

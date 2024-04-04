@@ -1,0 +1,37 @@
+{% extends "formApp/base_formApp.html" %}
+{% load static %}
+
+{% block formApp_content %}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Company</h1>
+</div>
+<div class="container">
+    <div class="card">
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-lg-6">
+            <h5 class="card-title">Company Name: {{company.clientFirstName}}</h5>
+            <hr>
+            <p class="card-text"><strong>Address:</strong> {{company.addressLine1}}</p>
+            <p class="card-text"><strong>Province:</strong> {{company.province}}</p>
+            <p class="card-text"><strong>Postal Code:</strong> {{company.postalCode}}</p>
+            <br>
+            <p class="card-text"><strong>Phone Number:</strong> {{company.phoneNumber}}</p>
+            <p class="card-text"><strong>Email:</strong> {{company.emailAddress}}</p>
+            <br>
+          </div>
+
+
+          <div class="col-lg-5">
+            <div class="p-5">
+            <img class=img-fluid  src="{% static 'assets/img/empty.svg' %}" alt="Skolo Online Learning">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
