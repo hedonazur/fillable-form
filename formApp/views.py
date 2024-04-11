@@ -4,11 +4,18 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 from .models import Client, Product, Proforma, Settings
 from .forms import ClientForm, ProductForm, ProformaForm, ClientSelectForm
+from .functions import emailProformaClient
 from django.contrib import messages
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from uuid import uuid4
+
+from django.http import HttpResponse
+import pdfkit
+from django.template.loader import get_template
+from django.conf import settings
+import os
 
 @login_required
 def index(request):
@@ -107,7 +114,7 @@ def createBuildProforma(request, slug):
             obj.proforma = proforma
             obj.save()
 
-            messages.success(request, 'Invoice Product Added succesfully')
+            messages.success(request, 'Proforma Product Added succesfully')
             return redirect('create-built-proforma', slug=slug)
         elif proforma_form.is_valid and 'salesmanName' in request.POST:
             proforma_form.save()
@@ -133,3 +140,180 @@ def companySettings(request):
     company = Settings.objects.get(clientFirstName='Office Solutions') 
     context = {'company': company}
     return render(request, 'formApp/company.html', context)
+
+
+def viewPDFProforma(request, slug):
+    ###Fetch  proforma
+    try:
+        proforma = Proforma.objects.get(slug=slug)
+    except:
+        messages.error(request, 'Something went wrong')
+        return redirect('proformas')
+    
+    ####Fetch product
+    products = Product.objects.filter(proforma=proforma)
+    
+    ####Get client Settings
+    company = Settings.objects.get(clientFirstName='Office Solutions')
+
+    #Calculate the proforma Total
+    invoiceCurrency = ''
+    invoiceTotal = 0.0
+    if len(products) > 0:
+        for x in products:
+            y = float(x.quantity) * float(x.price)
+            invoiceTotal += y
+            invoiceCurrency = x.currency
+
+    context = {}
+    context['products'] = products
+    context['proforma'] = proforma
+    context['company'] = company
+    context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+    context['invoiceCurrency'] = invoiceCurrency
+
+    return render(request, 'formApp/proforma_view.html', context)
+
+
+def viewDocumentProforma(request, slug):
+    ###Fetch  proforma
+    try:
+        proforma = Proforma.objects.get(slug=slug)
+    except:
+        messages.error(request, 'Something went wrong')
+        return redirect('proformas')
+    
+    ####Fetch product
+    products = Product.objects.filter(proforma=proforma)
+    
+    ####Get client Settings
+    company = Settings.objects.get(clientFirstName='Office Solutions')
+
+    #Calculate the proforma Total
+    invoiceCurrency = ''
+    invoiceTotal = 0.0
+    if len(products) > 0:
+        for x in products:
+            y = float(x.quantity) * float(x.price)
+            invoiceTotal += y
+            invoiceCurrency = x.currency
+
+    context = {}
+    context['products'] = products
+    context['proforma'] = proforma
+    context['company'] = company
+    context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+    context['invoiceCurrency'] = invoiceCurrency
+
+    #The name of your PDF file
+    filename = '{}.pdf'.format(proforma.uniqueId)
+
+    #HTML FIle to be converted to PDF - inside your Django directory
+    template = get_template('formApp/proforma_pdf_template.html')
+
+    #Render the HTML
+    html = template.render(context)
+
+    #Options - Very Important [Don't forget this]
+    options = {
+            'encoding': 'UTF-8',
+            'javascript-delay':'10', #Optional
+            'enable-local-file-access': None, #To be able to access CSS
+            'page-size': 'A4',
+            'custom-header' : [
+                ('Accept-Encoding', 'gzip')
+            ],
+        }
+        #Javascript delay is optional
+
+    #Remember that location to wkhtmltopdf
+    config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
+
+    #IF you have CSS to add to template
+    css1 = os.path.join(settings.STATIC_ROOT, 'css/assets/dist/css', 'bootstrap.min.css')
+    css2 = os.path.join(settings.STATIC_ROOT, 'css/assets/dist/css', 'bootstrap.min.css.map')
+    #Create the file
+    file_content = pdfkit.from_string(html, False, configuration=config, options=options)
+
+    #Create the HTTP Response
+    response = HttpResponse(file_content, content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename = {}'.format(filename)
+
+    #Return
+    return response
+
+
+def emailDocumentProforma(request, slug):
+    ###Fetch  proforma
+    try:
+        proforma = Proforma.objects.get(slug=slug)
+    except:
+        messages.error(request, 'Something went wrong')
+        return redirect('proformas')
+    
+    ####Fetch product
+    products = Product.objects.filter(proforma=proforma)
+    
+    ####Get client Settings
+    company = Settings.objects.get(clientFirstName='Office Solutions')
+
+    #Calculate the proforma Total
+    invoiceCurrency = ''
+    invoiceTotal = 0.0
+    if len(products) > 0:
+        for x in products:
+            y = float(x.quantity) * float(x.price)
+            invoiceTotal += y
+            invoiceCurrency = x.currency
+
+    context = {}
+    context['products'] = products
+    context['proforma'] = proforma
+    context['company'] = company
+    context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+    context['invoiceCurrency'] = invoiceCurrency
+
+    #The name of your PDF file
+    filename = '{}.pdf'.format(proforma.uniqueId)
+
+    #HTML FIle to be converted to PDF - inside your Django directory
+    template = get_template('formApp/proforma_pdf_template.html')
+
+
+    #Render the HTML
+    html = template.render(context)
+
+    #Options - Very Important [Don't forget this]
+    options = {
+          'encoding': 'UTF-8',
+          'javascript-delay':'10', #Optional
+          'enable-local-file-access': None, #To be able to access CSS
+          'page-size': 'A4',
+          'custom-header' : [
+              ('Accept-Encoding', 'gzip')
+          ],
+      }
+      #Javascript delay is optional
+
+    #Remember that location to wkhtmltopdf
+    config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
+
+    #Saving the File
+    filepath = os.path.join(settings.MEDIA_ROOT, 'client_invoices')
+    os.makedirs(filepath, exist_ok=True)
+    pdf_save_path = filepath+filename
+    #Save the PDF
+    pdfkit.from_string(html, pdf_save_path, configuration=config, options=options)
+
+
+    #send the emails to client
+    to_email = proforma.client.emailAddress
+    from_client = company.clientFirstName
+    emailProformaClient(to_email, from_client, pdf_save_path)
+
+    proforma.status = 'EMAIL_SENT'
+    proforma.save()
+
+    #Email was send, redirect back to view - invoice
+    messages.success(request, "Email sent to the client succesfully")
+    return redirect('create-built-proforma', slug=slug)

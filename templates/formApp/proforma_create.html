@@ -52,6 +52,19 @@
         No hay 
         {% endif %}
       </ul>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <a href="{% url 'view-pdf-proforma' proforma.slug %}"><button class="btn btn-info text-white"> VIEW CLIENT PROFORMA </button></a>
+        </div>
+        <div class="col-lg-4">
+          <a href="{% url 'view-document-proforma' proforma.slug %}"><button class="btn btn-success text-white"> VIEW PDF PROFORMA </button></a>
+        </div>
+        <div class="col-lg-4">
+          <a href="{% url 'email-document-proforma' proforma.slug %}"><button class="btn btn-warning text-white"> EMAIL PDF </button></a>
+        </div>
+      </div>
+      
     </div>
     <!-- Invoice Column  -->
     <div class="col-md-7 col-lg-7">

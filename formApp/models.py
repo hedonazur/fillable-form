@@ -53,7 +53,11 @@ class Client(models.Model):
 
 
 class Proforma(models.Model):
-     
+    STATUS = [
+    ('CURRENT', 'CURRENT'),
+    ('EMAIL_SENT', 'EMAIL_SENT'),
+    ] 
+    
     title = models.CharField(null=True, blank=True, max_length=100)
     salesmanName =  models.CharField(null=True, blank=True, max_length=200)
     number = models.CharField(null=True, blank=True, max_length=100)
@@ -61,6 +65,7 @@ class Proforma(models.Model):
     deliveryPrice = models.FloatField(null=True, blank=True)
     total = models.FloatField(null=True, blank=True)
     grandTotal = models.FloatField(null=True, blank=True, help_text='including delivery')
+    status = models.CharField(choices=STATUS, default='CURRENT', max_length=100)
 
     #RELATED fields
     client = models.ForeignKey(Client, blank=True, null=True, on_delete=models.SET_NULL)
@@ -104,7 +109,7 @@ class Product(models.Model):
     quantity = models.FloatField(null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
     currency = models.CharField(choices=CURRENCY, default='$', max_length=100)
-    
+
     #Related fields
     proforma = models.ForeignKey(Proforma, blank=True, null=True, on_delete=models.CASCADE)
     #Utility fields
