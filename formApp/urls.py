@@ -12,6 +12,9 @@ urlpatterns = [
     #Create url paths 
     path("proformas/create", views.createProforma, name='create-proforma'),
     path("proformas/create-build/<slug:slug>", views.createBuildProforma, name='create-built-proforma'),
+    
+    #Delete an proforma
+    path('proformas/delete/<slug:slug>',views.deleteProforma, name='delete-proforma'),
     #View pdf
     path('proformas/view-pdf/<slug:slug>',views.viewPDFProforma, name='view-pdf-proforma'),
     path('proformas/view-document/<slug:slug>',views.viewDocumentProforma, name='view-document-proforma'),

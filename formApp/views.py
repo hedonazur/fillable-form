@@ -66,7 +66,7 @@ def products(request):
 @login_required
 def proformas(request):
     context = {}
-    proformas = Proforma.objects.all()
+    proformas = Proforma.objects.all().order_by('-last_updated')
     context['proformas'] = proformas
 
     return render(request, "formApp/proformas.html", context)
@@ -109,9 +109,10 @@ def createBuildProforma(request, slug):
             y = float(x.quantity) * float(x.price)
             invoiceTotal += y
             invoiceCurrency = x.currency
+        proforma.total = invoiceTotal
 
-    proforma.total = invoiceTotal
-    proforma.grandTotal = invoiceTotal + proforma.deliveryPrice
+    if proforma.deliveryPrice:
+        proforma.grandTotal = invoiceTotal + proforma.deliveryPrice
 
     context = {}
     context['products'] = products
@@ -159,6 +160,15 @@ def createBuildProforma(request, slug):
             return render(request, 'formApp/proforma_create.html', context)
 
     return render(request, 'formApp/proforma_create.html', context)
+
+def deleteProforma(request, slug):
+    try:
+        Proforma.objects.get(slug=slug).delete()
+    except:
+        messages.error(request, 'Something went wrong')
+        return redirect('proformas')
+
+    return redirect('proformas')
 
 
 def companySettings(request):

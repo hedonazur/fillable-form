@@ -36,19 +36,19 @@ class ProformaForm(forms.ModelForm):
                 widget=forms.TextInput(
                     attrs={'class': 'form-control'}))
     delivery = forms.BooleanField(
-                # required=True, 
+                required=False, 
                 widget=forms.CheckboxInput(
                     attrs={'class': 'form-check-input'}))
     deliveryPrice = forms.FloatField(
-                # required=True, 
+                required=False, 
                 widget=forms.NumberInput(
                     attrs={'class': 'form-control'}))
     total = forms.FloatField(
-                # required=True, 
+                required=False, 
                 widget=forms.NumberInput(
                     attrs={'class': 'form-control'}))
     grandTotal = forms.FloatField(
-                # required=True, 
+                required=False, 
                 widget=forms.NumberInput(
                     attrs={'class': 'form-control'}))
     
