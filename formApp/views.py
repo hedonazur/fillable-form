@@ -16,6 +16,10 @@ import pdfkit
 from django.template.loader import get_template
 from django.conf import settings
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG, filename="py_log.log", format="%(asctime)s %(levelname)s %(message)s")
+
 
 @login_required
 def index(request):
@@ -78,9 +82,9 @@ def createProforma(request):
     proforma = Proforma.objects.get(number=number)
     return redirect('create-built-proforma', slug=proforma.slug)
 
+
 @login_required
 def createBuildProforma(request, slug):
-
     ###Fetch  proforma
     try:
         proforma = Proforma.objects.get(slug=slug)
@@ -90,10 +94,31 @@ def createBuildProforma(request, slug):
     
     ####Fetch product
     products = Product.objects.filter(proforma=proforma)
+    items = 0
+    if len(products) > 0:
+        for x in products:
+            y = int(x.quantity)
+            items += y
+    logging.info(f"The length of products: {len(products)}, number of items: {items} ")
+
+    ####Update totals
+    invoiceCurrency = ''
+    invoiceTotal = 0.0
+    if len(products) > 0:
+        for x in products:
+            y = float(x.quantity) * float(x.price)
+            invoiceTotal += y
+            invoiceCurrency = x.currency
+
+    proforma.total = invoiceTotal
+    proforma.grandTotal = invoiceTotal + proforma.deliveryPrice
 
     context = {}
     context['products'] = products
     context['proforma'] = proforma
+    context['items'] = items
+    context['invoiceTotal'] = "{:.2f}".format(invoiceTotal)
+    context['invoiceCurrency'] = invoiceCurrency
  
     if request.method == 'GET':
         product_form = ProductForm()

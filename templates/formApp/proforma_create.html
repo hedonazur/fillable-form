@@ -21,7 +21,7 @@
     <div class="col-md-5 col-lg-5 order-md-last">     
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-primary">Products</span>
-        <span class="badge bg-primary rounded-pill">3</span>
+        <span class="badge bg-primary rounded-pill">{{ items}}</span>
       </h4>
       <h6 class="d-flex justify-content-between align-items-center mb-3">
         <span>Add more products to your proforma</span>
@@ -38,7 +38,7 @@
                 <div>
                     <h6 class="my-0">{{ product.title}}</h6>
                     <small class="text-body-secondary">{{ product.description}}</small>
-                    <small class="text-body-secondary">{{ product.quantity}}</small>
+                    <small class="text-body-secondary">({{ product.quantity|stringformat:"d"}})</small>
                 </div>
                 <span class="text-body-secondary">{{ product.price }}</span>
                 </li>
@@ -46,7 +46,7 @@
             {% endfor %}
             <li class="list-group-item d-flex justify-content-between">
                 <span>Total (USD)</span>
-                <strong>$20</strong>
+                <strong>{{ invoiceCurrency }}{{ invoiceTotal }}</strong>
             </li>
         {% else %}
         No hay 
