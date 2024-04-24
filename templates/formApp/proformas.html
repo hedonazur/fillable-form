@@ -38,6 +38,20 @@
             <td>{{ proforma.grandTotal}}</td>
             <td>{{ proforma.client}}</td>
             <td>{{ proforma.status}}</td>
+            <td>
+              <div class="btn-group me-2">
+                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'delete-proforma' proforma.slug %}">
+                  <button type="button" class="btn btn-danger">Delete</button>
+                </a>
+              </div>
+            </td>
+            <td>
+              <div class="btn-group me-2">
+                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'create-built-proforma' proforma.slug %}">
+                  <button type="button" class="btn btn-warning">View</button>
+                </a>
+              </div>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
